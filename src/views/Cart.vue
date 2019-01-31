@@ -1,8 +1,8 @@
 <template>
   <div class="cart">
     <el-row>
-      <el-col :span="24" class="header cart-header">
-          <div class="title default-font">
+      <el-col :span="24" class="header">
+          <div class="title">
             Your Cart
           </div>
       </el-col>
@@ -11,7 +11,7 @@
     <div class="content">
       <el-row class="item" v-for="(product, index) in cart.products" :key="index">
         <el-col :span="4">
-            <img class="image" src="@/assets/logo.png" alt="">
+            <img class="image" :src="product.imageUrl" alt="">
         </el-col>
         <el-col :span="16">
             <div class="title">
@@ -37,17 +37,17 @@
       </el-row>
 
       <el-row class="total">
-        <el-col :span="12">
+        <el-col :span="12" class="title">
           Total
         </el-col>
-        <el-col :span="12">
+        <el-col :span="12" class="amount">
           N{{ cartTotal }}
         </el-col>
       </el-row>
 
-      <el-row class="continue-shopping center-text">
+      <el-row class="center-text">
         <el-col :span="24">
-          <router-link to="/">Continue Shopping</router-link>
+          <router-link to="/" class="continue-shopping">Continue Shopping</router-link>
         </el-col>
       </el-row>
 

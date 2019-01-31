@@ -2,19 +2,21 @@
     "listings": [
         {
             "id": 1,
-            "imageUrl": "@/assets/logo.png",
+            "imageUrl": "/img/shoes@3x.png",
             "title": "Gucci Flops: Men shoe",
             "description": "Available in size 32, 34",
             "amount": 240000,
-            "count": "2"
+            "left": 2,
+            "count": 0
         },
         {
             "id": 1,
-            "imageUrl": "@/assets/logo.png",
+            "imageUrl": "/img/shoes@3x.png",
             "title": "Gucci Flops: Men shoe",
             "description": "Available in size 32, 34",
             "amount": 240000,
-            "count": "2"
+            "left": 2,
+            "count": 0
         }
     ]
 }

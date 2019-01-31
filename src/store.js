@@ -1,13 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import { stat } from 'fs';
 
 Vue.use(Vuex)
 
-function getIndexById (items, itemId) {
+// helpers
+let listingsUrl = process.env.NODE_ENV === 'production' ? '/listingjson' : '../listings.json';
+
+function getProductById (items, itemId) {
   let itemIds = items.map((item) => item.id)
-  return itemIds.indexOf(itemId)
+  let itemIndex = itemIds.indexOf(itemId)
+  let item = items[itemIndex]
+  return {
+    product: item,
+    index: itemIndex
+  }
 }
 
 export default new Vuex.Store({
@@ -24,7 +31,8 @@ export default new Vuex.Store({
     modals: {
       listingModal: false,
     },
-    listingModalItem: {}
+    listingModalItem: {},
+    checkoutMessage: null
   },
   getters: {
     cart: state => state.cart,
@@ -36,6 +44,7 @@ export default new Vuex.Store({
     listings: state => state.listings,
     modals: state => state.modals,
     listingModalItem: state => state.listingModalItem,
+    checkoutMessage: state => state.checkoutMessage,
   },
   mutations: {
     clearModals (state) {
@@ -57,37 +66,47 @@ export default new Vuex.Store({
     setProductsLoading (state, value) {
       state.listings.loading = value
     },
+    setCheckoutMessage (state, value) {
+      state.checkoutMessage = value || null
+    },
     setMoreProductsLoading (state, value) {
       state.listings.moreLoading = value
     },
     addToCart (state, productId) {
-      let productIndex = getIndexById(state.listings.products, productId)
-      let product = state.listings.products[productIndex]
+      let product = getProductById(state.listings.products, productId).product
 
-      let cartProductIndex = getIndexById(state.cart.products, productId)
+      let cartProduct = getProductById(state.cart.products, productId).product
 
-      if (!cartProductIndex) {
+      if (!cartProduct) {
         state.cart.products.push(product) // if product is not in cart
       }
       else {
-        if (!state.cart.products[cartProductIndex].count)
-          state.cart.products[cartProductIndex].count = 1
+        if (cartProduct && !cartProduct.count)
+          cartProduct.count = 1 // initialize count if not initialized
         else
-          state.cart.products[cartProductIndex].count++
+          cartProduct.count++
       }
     },
-    removeFromCart (state, productId) {
-      let cartProductIndex = getIndexById(state.cart.products, productId)
-      let cartProduct = state.cart.products[cartProductIndex]
+    decrementInCart (state, productId) {
+      let result = getProductById(state.cart.products, productId)
+      let cartProduct = result.product
+      let cartProductIndex = result.index
 
-      if (cartProductIndex) {
+      if (cartProduct) {
         // if product is in cart
-        if (cartProduct.count && cartProduct.count <= 1)
+        if (cartProduct.count && cartProduct.count == 0)
           state.cart.products.splice(cartProductIndex, 1) // delete from cart
         else
           state.cart.products[cartProductIndex].count-- // reduce number in cart
       }
 
+    },
+    removeFromCart (state, productId) {
+      let cartProductIndex = getProductById(state.cart.products, productId).index
+
+      // if product is in cart
+      if (cartProductIndex)
+        state.cart.products.splice(cartProductIndex, 1) // delete from cart
     }
   },
   actions: {
@@ -99,24 +118,27 @@ export default new Vuex.Store({
     },
     fetchProducts ({ commit }) {
       commit('setProductsLoading', true)
-      axios.get('/listingjson')
-      .then(function (response) {
-        // handle success
-        console.log(response);
-        commit('setProducts', response.data.listings)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-        commit('setProductsLoading', false)
-      });
+
+      setTimeout(() => {
+        axios.get(listingsUrl)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+          commit('setProducts', response.data.listings)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+          commit('setProductsLoading', false)
+        });
+      }, 1000)
     },
     loadMoreProducts ({commit}) {
       commit('setMoreProductsLoading', true)
-      axios.get('/listingjson')
+      axios.get(listingsUrl)
       .then(function (response) {
         // handle success
         console.log(response);
@@ -141,9 +163,24 @@ export default new Vuex.Store({
       commit('addToCart', productId)
     },
     decrementInCart ({ commit }, productId) {
-      commit('removeFromCart', productId)
+      commit('decrementInCart', productId)
     },
-    checkoutCart ({ commit }) {
+    checkoutCart ({ commit, state }) {
+      axios.post('http://www.mocky.io/v2/5be477442f00004900d9f521', {
+        products: state.cart.products
+      })
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        commit('setCheckoutMessage', response.data.message)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
 
     }
 
