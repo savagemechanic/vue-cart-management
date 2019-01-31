@@ -99,7 +99,7 @@ export default new Vuex.Store({
     },
     fetchProducts ({ commit }) {
       commit('setProductsLoading', true)
-      axios.get('./listings.json')
+      axios.get('/listingjson')
       .then(function (response) {
         // handle success
         console.log(response);
@@ -116,7 +116,7 @@ export default new Vuex.Store({
     },
     loadMoreProducts ({commit}) {
       commit('setMoreProductsLoading', true)
-      axios.get('./listings.json')
+      axios.get('/listingjson')
       .then(function (response) {
         // handle success
         console.log(response);
