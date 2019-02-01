@@ -27,7 +27,7 @@
         <el-row>
 
           <el-col :span="24" class="item">
-          <div class="image-container"
+          <div class="image-container cursor-pointer"
         @click="openListingModal(product)">
             <!-- <div class="image-container"> -->
                 <img :src="product.imageUrl" alt="Product" class="image"/>

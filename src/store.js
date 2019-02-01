@@ -36,6 +36,9 @@ export default new Vuex.Store({
   },
   getters: {
     cart: state => state.cart,
+    cartProducts: state => {
+      return localStorage.getItem('cartProducts') || state.cart.products
+    },
     cartTotal: state => {
       if (state.cart.products.length)
         return state.cart.products.reduce((accumulator, currentValue) => accumulator.amount + currentValue.amount)
@@ -107,6 +110,10 @@ export default new Vuex.Store({
       // if product is in cart
       if (cartProductIndex)
         state.cart.products.splice(cartProductIndex, 1) // delete from cart
+    },
+    persistCart (state) {
+      // save cart state to localStorage
+      localStorage.setItem('cartProducts', state.cart.products)
     }
   },
   actions: {
@@ -155,15 +162,19 @@ export default new Vuex.Store({
     },
     addToCart ({ commit }, productId) {
       commit('addToCart', productId)
+      commit('persistCart')
     },
     removeFromCart ({ commit }, productId) {
       commit('removeFromCart', productId)
+      commit('persistCart')
     },
     incrementInCart ({ commit }, productId) {
       commit('addToCart', productId)
+      commit('persistCart')
     },
     decrementInCart ({ commit }, productId) {
       commit('decrementInCart', productId)
+      commit('persistCart')
     },
     checkoutCart ({ commit, state }) {
       axios.post('http://www.mocky.io/v2/5be477442f00004900d9f521', {

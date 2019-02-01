@@ -9,7 +9,7 @@
     </el-row>
 
     <div class="content">
-      <el-row class="item" v-for="(product, index) in cart.products" :key="index">
+      <el-row class="item" v-for="(product, index) in cartProducts" :key="index">
         <el-col :span="4">
             <img class="image" :src="product.imageUrl" alt="">
         </el-col>
@@ -73,6 +73,7 @@ export default {
   computed: {
     ...mapGetters([
         'cart',
+        'cartProducts',
         'cartTotal',
     ]),
   },

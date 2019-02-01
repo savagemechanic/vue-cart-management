@@ -1,0 +1,19 @@
+
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the header of the site/application.
+// -----------------------------------------------------------------------------
+
+  
+.header {
+    background-color: $light-gray;
+    width: 100%;
+    text-align: center;
+
+    .title {  
+        display: inline-block;
+    }
+
+    .icon {
+        display: inline-block;
+    }
+}

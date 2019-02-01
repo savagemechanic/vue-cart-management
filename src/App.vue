@@ -5,6 +5,5 @@
 </template>
 
 <style lang="scss">
-  @import './assets/sass/styles.scss';
-  @import './assets/css/font-awesome/css/font-awesome.css';
+  @import './assets/scss/main.scss';
 </style>

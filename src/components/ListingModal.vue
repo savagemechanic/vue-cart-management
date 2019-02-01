@@ -33,7 +33,7 @@
         </el-row>
 
         <el-row>
-          <el-col :span="24" class="quantity">
+          <el-col :span="24" class="quantity cursor-pointer">
             <div class="left-side" @click="decrementInCart(listing.id)">
             -
             </div>
