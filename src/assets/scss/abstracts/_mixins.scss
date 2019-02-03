@@ -7,11 +7,16 @@
   display: flex;
 }
 
+@mixin centered-content-grid {
+  display: inline-grid;
+  justify-content: center;
+  align-content: center;
+}
+
 @mixin normal-font($weight: normal, $letter-spacing: normal) {
   font-weight: $weight;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
-  // text-align: center;
   letter-spacing: $letter-spacing;
 }

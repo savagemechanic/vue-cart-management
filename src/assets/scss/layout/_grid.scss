@@ -65,9 +65,7 @@
             grid-area: icon-text;
             align-self: start;
             justify-self: start;
-            display: grid;
-            justify-content: center;
-            align-content: center;
+            @include centered-content-grid;
         }
 
         @media only screen and (min-width: map-get($breakpoints, 'medium')) {
@@ -278,30 +276,32 @@
                 .follow {
                     justify-self: center;
                     align-self: center;
-                    display: inline-grid;
-                    justify-content: center;
-                    align-content: center;
+                    @include centered-content-grid;
                 }
             }
         }
     }
 
     .listing-modal {
-        grid-column: span core;
-        // display: inline-grid;
-        // grid-template-columns: repeat(3, 1fr);
-        // grid-template-rows: 162px 30px;
-        // grid-row-gap: 5px;
-        // grid-template-areas: 
-        // "image image image"
-        // "details . button";
+        display: inline-grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 162px 30px 25px 25px 25px;
+        grid-row-gap: 5px;
+        grid-template-areas: 
+        "image image image"
+        "details details left-in-cart"
+        "top-button top-button top-button"
+        "mid-button mid-button mid-button"
+        "bottom-button bottom-button bottom-button";
+
+        @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+            & {
+                grid-template-rows: 324px 30px 25px 25px 25px;
+            }
+        }
     
         .image {
-            grid-row-end: 1;
             grid-area: image;
-            grid-row: 1;
-            justify-self: start;
-            align-self: start;
         }
       
         .amount {
@@ -321,24 +321,38 @@
         }
     
         .left-in-cart {
+            grid-area: left-in-cart;
         }
     
-        .btn-secondary {
-            grid-area: button;
-            justify-self: start;
-            align-self: start;
+        .add-to-cart {
+            grid-area: mid-button;
         }
     
         .quantity {
+            grid-area: top-button;
+            display: grid;
+            grid-template-columns: 17px 1fr 17px;
+            grid-template-areas: 
+            "left-side mid right-side";
     
           .left-side {
+              grid-area: left-side;
+              @include centered-content-grid;
           }
     
           .middle {
+              grid-area: mid;
+              @include centered-content-grid;
           }
     
           .right-side {
+              grid-area: right-side;
+              @include centered-content-grid;
           }
+        }
+
+        .btn-checkout {
+            grid-area: bottom-button;
         }
     }
 }

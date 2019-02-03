@@ -31,7 +31,9 @@
               <!-- <div class="image-container cursor-pointer" -->
             <!-- > -->
               <!-- <div class="image-container"> -->
-                  <div class="overlay web-only"></div>
+                  <div class="overlay web-only"
+                    @click="openListingModal(product)">
+                  </div>
                   <img :src="product.imageUrl" alt="Product" class="image"
                     @click="openListingModal(product)"/>
                   <p class="amount">N{{ product.amount }}</p>
@@ -66,11 +68,11 @@
         <div class="line left web-only"></div>
         <div class="follow midline web-only">Follow us on instagram</div>
         <div class="line right web-only"></div>
+    
+    <listing-modal/>
         
     </div>
     </div>
-    
-    <listing-modal/>
   </div>
 </template>
 

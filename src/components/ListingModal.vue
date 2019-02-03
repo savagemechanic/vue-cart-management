@@ -2,68 +2,41 @@
 
   <el-dialog :visible.sync="modals.listingModal" 
     animation="zoom"
-    :before-close="clearModals" 
-    class="listing-modal">
+    :before-close="clearModals">
 
     <!-- Modal body -->
-        <!-- <el-row>
-          <el-col :span="24" class="image-container"> -->
-            <!-- <div class="image-container"> -->
-            <img :src="listing.imageUrl" alt="Product" class="image"/>
-            <p class="amount">N{{ listing.amount }}</p>
-            <!-- </div> -->
-          <!-- </el-col>
-        </el-row> -->
+    <div class="listing-modal">
+      <img :src="listing.imageUrl" alt="Product" class="image"/>
+      <p class="amount">N{{ listing.amount|savageprice }}</p>
 
+      <div class="title">
+        {{ listing.title }}
+      </div>
+      
+      <div class="left-in-cart">
+        {{ listing.left }} left
+      </div>
+      
+      <div class="description">
+        {{ listing.description }}
+      </div>
+      
+      <div class="quantity cursor-pointer">
+        <div class="left-side" @click="decrementInCart(listing.id)">
+        -
+        </div>
+        <div class="middle">
+        QUANTITY {{ listing.count||0 }}
+        </div>
+        <div class="right-side" @click="addToCart(listing.id)">
+        +
+        </div>
+      </div>
+      
+      <button class="btn btn-primary add-to-cart" @click="addToCart(listing.id)">ADD TO CART</button>
 
-        <!-- <el-row>
-          <el-col :span="18" class="title"> -->
-          <div class="title">
-            {{ listing.title }}
-          </div>
-          <!-- </el-col> -->
-          <!-- <el-col :span="6" class="left"> -->
-          <div class="left-in-cart">
-            {{ listing.left }} left
-          </div>
-          <!-- </el-col>
-        </el-row> -->
-
-        <!-- <el-row>
-          <el-col :span="24" class="description"> -->
-          <div class="description">
-            {{ listing.description }}
-          </div>
-          <!-- </el-col>
-        </el-row> -->
-
-        <!-- <el-row>
-          <el-col :span="24" class="quantity cursor-pointer"> -->
-          <div class="quantity cursor-pointer">
-            <div class="left-side" @click="decrementInCart(listing.id)">
-            -
-            </div>
-            <div class="middle">
-            Quantity {{ listing.count||0 }}
-            </div>
-            <div class="right-side" @click="addToCart(listing.id)">
-            +
-            </div>
-          </div>
-          <!-- </el-col>
-        </el-row> -->
-
-        <!-- <el-row>
-          <el-col :span="24"> -->
-          <button class="btn btn-primary" @click="addToCart(listing.id)">Add to cart</button>
-          <!-- </el-col>
-        </el-row> -->
-
-        <!-- <el-row>
-          <el-col :span="24"> -->
-          <button @click="goToCheckout" class="btn btn-transparent">Checkout now</button>
-          <!-- </el-col>
-        </el-row> -->
+      <button @click="goToCheckout" class="btn btn-transparent btn-checkout">Checkout now</button>
+    </div>
 
   </el-dialog>
 </template>
