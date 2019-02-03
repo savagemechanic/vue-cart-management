@@ -11,3 +11,21 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.web-only {
+    display: none;
+
+    @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+      & {
+          display: initial;
+      }
+    }
+}
+
+.mobile-only {
+    @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+      & {
+          display: none!important;
+      }
+    }
+}

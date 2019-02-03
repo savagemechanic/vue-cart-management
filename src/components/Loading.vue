@@ -24,7 +24,6 @@ export default {
   height: 100px;*/
   position: relative;
   margin: auto;
-  margin-top: 10vh;
   display: table;
 } 
 

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.61c888fb362b0f24885f3cf7caeb3bfc.js"
+  "/precache-manifest.b53592912e95fcc927392957ce535c23.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-cart-management"});

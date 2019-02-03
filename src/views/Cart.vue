@@ -1,19 +1,23 @@
 <template>
   <div class="cart">
-    <el-row>
-      <el-col :span="24" class="header">
-          <div class="title">
-            Your Cart
-          </div>
-      </el-col>
-    </el-row>
+    <div class="header">
+      <div class="title">
+        Your Cart
+      </div>
+    </div>
 
     <div class="content">
-      <el-row class="item" v-for="(product, index) in cartProducts" :key="index">
-        <el-col :span="4">
+      <banner v-if="checkoutMessage">
+        {{ checkoutMessage }}
+      </banner>
+
+      <div class="cart-top">
+
+        <div class="item" v-for="(product, index) in cartProducts" :key="index">
+          <div class="image-meta">
             <img class="image" :src="product.imageUrl" alt="">
-        </el-col>
-        <el-col :span="16">
+            
+          <div class="meta">
             <div class="title">
               {{ product.title }}
             </div>
@@ -23,46 +27,50 @@
             </div>
 
             <div class="amount">
-              N{{ product.amount }}
+              N{{ product.amount | savageprice }}
             </div>
-        </el-col>
-        <el-col :span="4">
-            <div>
-              <i class="icon">-</i>
+          </div>
+          </div>
+          
+          <div class="actions">
+            <div class="counter">
+              <i class="icon minus" @click="decrementInCart(product.id)">-</i>
               {{ product.count }}
-              <i class="icon">+</i>
+              <i class="icon plus" @click="addToCart(product.id)">+</i>
             </div>
-            <div>Remove</div>
-        </el-col>
-      </el-row>
+            <div class="remove" @click="removeFromCart(product.id)">Remove</div>
+          </div>
+      </div>
 
-      <el-row class="total">
-        <el-col :span="12" class="title">
+      <div class="total">
+        <div class="title">
           Total
-        </el-col>
-        <el-col :span="12" class="amount">
-          N{{ cartTotal }}
-        </el-col>
-      </el-row>
+        </div>
+        <div class="amount">
+          N {{ cartTotal | savageprice }}
+        </div>
+      </div>
+      </div>
 
-      <el-row class="center-text">
-        <el-col :span="24">
-          <router-link to="/" class="continue-shopping">Continue Shopping</router-link>
-        </el-col>
-      </el-row>
+      <div class="center-text">
+        <div>
+          <router-link to="/" class="continue-shopping">Continue shopping</router-link>
+        </div>
+      </div>
 
-      <el-row class="checkout center-text">
-        <el-col :span="24">
-          <button class="btn btn-primary">CHECKOUT</button>
-        </el-col>
-      </el-row>
+      <div class="checkout center-text">
+        <button class="btn btn-primary checkout" @click="checkoutCart">
+          CHECKOUT
+        </button>
+      </div>
     </div>
     
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import Banner from "@/components/Banner.vue";
 
 export default {
   name: 'cart',
@@ -70,12 +78,24 @@ export default {
     return {
     }
   },
+  components: {
+    Banner
+  },
   computed: {
     ...mapGetters([
         'cart',
         'cartProducts',
         'cartTotal',
+        'checkoutMessage',
     ]),
   },
+  methods: {
+    ...mapActions([
+      'checkoutCart',
+      'decrementInCart',
+      'removeFromCart',
+      'addToCart',
+    ]),
+  }
 }
 </script>

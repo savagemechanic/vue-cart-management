@@ -5,7 +5,7 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 // helpers
-let listingsUrl = process.env.NODE_ENV === 'production' ? '/listingjson' : '../listings.json';
+let listingsUrl = process.env.NODE_ENV === 'production' ? '/listingjson' : '/listings.json';
 
 function getProductById (items, itemId) {
   let itemIds = items.map((item) => item.id)
@@ -17,16 +17,20 @@ function getProductById (items, itemId) {
   }
 }
 
+function getObjectFromLocalStorage (key) {
+  return JSON.parse(localStorage.getItem(key))
+}
+
 export default new Vuex.Store({
   state: {
     cart: {
-      products: [],
+      products: getObjectFromLocalStorage('cartProducts') || [],
     },
     listings: {
       products: [],
       loading: false,
       moreLoading: false,
-      perPage: 1
+      perPage: 10
     },
     modals: {
       listingModal: false,
@@ -37,11 +41,13 @@ export default new Vuex.Store({
   getters: {
     cart: state => state.cart,
     cartProducts: state => {
-      return localStorage.getItem('cartProducts') || state.cart.products
+      return state.cart.products
     },
     cartTotal: state => {
       if (state.cart.products.length)
-        return state.cart.products.reduce((accumulator, currentValue) => accumulator.amount + currentValue.amount)
+        return state.cart.products.reduce((accumulator, currentValue) => {
+          return accumulator + (currentValue.amount * parseInt(currentValue.count))
+        }, 0)
       return 0
     },
     listings: state => state.listings,
@@ -81,6 +87,7 @@ export default new Vuex.Store({
       let cartProduct = getProductById(state.cart.products, productId).product
 
       if (!cartProduct) {
+        product.count = 1
         state.cart.products.push(product) // if product is not in cart
       }
       else {
@@ -97,7 +104,7 @@ export default new Vuex.Store({
 
       if (cartProduct) {
         // if product is in cart
-        if (cartProduct.count && cartProduct.count == 0)
+        if (cartProduct.count <= 1)
           state.cart.products.splice(cartProductIndex, 1) // delete from cart
         else
           state.cart.products[cartProductIndex].count-- // reduce number in cart
@@ -106,14 +113,15 @@ export default new Vuex.Store({
     },
     removeFromCart (state, productId) {
       let cartProductIndex = getProductById(state.cart.products, productId).index
+      let cartProduct = getProductById(state.cart.products, productId).product
 
       // if product is in cart
-      if (cartProductIndex)
+      if (cartProduct)
         state.cart.products.splice(cartProductIndex, 1) // delete from cart
     },
     persistCart (state) {
       // save cart state to localStorage
-      localStorage.setItem('cartProducts', state.cart.products)
+      localStorage.setItem('cartProducts', JSON.stringify(state.cart.products))
     }
   },
   actions: {
@@ -189,9 +197,6 @@ export default new Vuex.Store({
         // handle error
         console.log(error);
       })
-      .finally(function () {
-        // always executed
-      });
 
     }
 

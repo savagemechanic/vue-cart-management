@@ -7,81 +7,144 @@
   
     .header {
       height: 27.5px;
+      text-align: center;
 
       .title {
         @include normal-font(bold, 0.7px); // font-weight, letter-spacing
         font-size: $base-font-size;
       }
     }
-  
-    .item {
-      background-color: $white-bg;
-      border-bottom: $border-thin solid $gray;
-  
-      .title {
-        @include normal-font(500, 0px); // font-weight, letter-spacing
-        font-size: $base-font-size;
+
+    .content {
+      @include flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: stretch;
+      margin: 7px 6px 7px 9px;
+      min-height: 80vh;
+
+      .cart-top {
+        @include flex;
+        flex-direction: column;
+        margin-right: 9px;
+
       }
+    
+      .item {
+        @include flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+
+        background-color: $white-bg;
+        border-bottom: 1px solid $gray-hr;
+        height: 42.5px;
+
+        .image-meta {
+          @include flex;
+          flex-direction: row;
   
-      .description {
-        @include normal-font(normal, 0px); // font-weight, letter-spacing
-        font-size: 6px;
+        }
+    
+        .image {
+          width: 22px;
+          height: 22px;
+          object-fit: contain;
+        }
+
+        .meta {
+          @include flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+          margin-left: 5px;
+    
+          .title {
+            @include normal-font(500, 0px); // font-weight, letter-spacing
+            font-size: $base-font-size;
+          }
+      
+          .description {
+            @include normal-font(normal, 0px); // font-weight, letter-spacing
+            font-size: 6px;
+            color: $medium-dark;
+          }
+      
+          .amount {
+            @include normal-font(bold, 0px); // font-weight, letter-spacing
+            font-size: $base-font-size;
+            color: $warning-color;
+          }
+        }
+
+        .actions {
+          @include flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+
+          .counter {
+            object-fit: contain;
+            font-family: SFProDisplay;
+            font-size: $base-font-size;
+            text-align: center;
+          }
+
+          .remove {
+            font-family: SFProDisplay;
+            font-size: $base-font-size;
+            color: $danger-color;
+            cursor: pointer;
+          }
+        }
+    
+        .icon {
+          width: 8.5px;
+          height: 10px;
+          background-color: $black-bg;  
+          text-align: center;
+          color: $white-color;  
+          object-fit: contain;
+          font-size: $base-font-size;
+          cursor: pointer;
+          padding: 1px 2px;
+        }
+      }
+    
+      .total {
+        @include flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #f1f1f1;
+        color: $black-color;  
+        height: 17px;
+        margin: 9.5px 0;
+    
+        .title {
+          @include normal-font(500, normal); // font-weight, letter-spacing
+          font-size: $base-font-size;
+          color: $medium-dark;
+          margin-left: 6.5px;
+        }
+    
+        .amount {
+          @include normal-font(bold, normal); // font-weight, letter-spacing
+          font-size: $base-font-size;
+          text-align: right;
+          color: $medium-dark;
+          margin-right: 3.5px;
+          
+        }
+      }
+    
+      .continue-shopping { 
+        @include normal-font(500, normal); // font-weight, letter-spacing 
+        font-size: $base-font-size;
         color: $medium-dark;
       }
-  
-      .image {  
-        width: 22px;
-        height: 22px;
-        object-fit: contain;
+    
+      .checkout {
+        border: none;
       }
-  
-      .amount {
-        @include normal-font(bold, 0px); // font-weight, letter-spacing
-        font-size: $base-font-size;
-        color: $warning-color;
-      }
-  
-      .icon {
-        width: 8.5px;
-        height: 10px;
-        background-color: $black-bg;  
-        text-align: left;
-        color: $white-color;  
-        object-fit: contain;
-        font-size: $base-font-size;
-      }
-    }
-  
-    .total {
-      background-color: #f1f1f1;
-      color: $black;  
-      height: 17px;
-      width: 100%;
-      padding: 5px;
-      margin: 20px 0;
-  
-      .title {
-        @include normal-font(500, normal); // font-weight, letter-spacing
-        font-size: $base-font-size;
-        color: $medium-dark;
-      }
-  
-      .amount {
-        @include normal-font(bold, normal); // font-weight, letter-spacing
-        font-size: $base-font-size;
-        text-align: right;
-        color: $medium-dark;
-        
-      }
-    }
-  
-    .continue-shopping { 
-      @include normal-font(500, normal); // font-weight, letter-spacing 
-      font-size: $base-font-size;
-      color: $medium-dark;
-    }
-  
-    .checkout {
     }
 }
   

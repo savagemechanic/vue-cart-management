@@ -1,15 +1,6 @@
 
-body {
-  min-height: 100vh;
-  width: 100%;
-  margin: 0;
-}
-
   
 .content {
-  @include flex;
-  padding: 10px;
-  min-height: 80vh;
 
   .description {
     @include normal-font(normal, 0.7px); // font-weight, letter-spacing

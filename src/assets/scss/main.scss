@@ -1,25 +1,26 @@
 @charset 'UTF-8';
 
-// 1. Configuration and helpers
+// Configuration and helpers
 @import
   'abstracts/variables',
   'abstracts/mixins';
 
-// 2. Vendors
+// Base stuff
 @import
-  'vendors/font-awesome/scss/font-awesome';
-
-// 3. Base stuff
-@import
+  'base/reset',
   'base/base',
   'base/fonts',
   'base/typography',
   'base/helpers';
 
-// 4. Layout-related sections
+// Layout-related sections
 @import
-  'layout/header';
+  'layout/header',
+  'layout/grid';
 
-// 5. Components
+// Components
 @import
-  'components/button';
+  'components/button',
+  'components/cart',
+  'components/listings',
+  'components/modal';

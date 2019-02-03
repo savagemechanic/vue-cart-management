@@ -4,12 +4,19 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
-import ElementUI from 'element-ui'
+// element ui modal
+import { Dialog } from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(Dialog, { locale });
 
 Vue.config.productionTip = false
-Vue.use(ElementUI, { locale });
+
+Vue.filter('savageprice', function (value) {
+  if (!value) return '0'
+  value = value.toString()
+  return value.match(/.{1,3}/g).join(',')
+})
 
 new Vue({
   router,

@@ -3,6 +3,7 @@
 // -----------------------------------------------------------------------------
 
 $base-font-size: 7px !default;
+$medium-font-size: 12px !default;
 
 $primary-font: 'Roboto' !default;
 $secondary-font: 'SFProDisplay' !default;
@@ -30,6 +31,9 @@ $medium-dark: #4a4a4a !default;
 $light-gray: #f6f6f6 !default;
 $medium-gray: #d8d8d8 !default;
 $dark-gray: #333333 !default;
+$gray-hr: rgba(0, 0, 0, 0.2) !default;
+
+$gray-line-color: #979797;
 
 $see-through-black: rgba(0, 0, 0, 0.83);
 $transparent-black: rgba(0, 0, 0, 0.39);
@@ -66,4 +70,4 @@ $breakpoints: (
 
 /// Relative or absolute URL where all assets are served from
 /// @type String
-$base-url: '/assets/' !default;
+$base-url: '/' !default;

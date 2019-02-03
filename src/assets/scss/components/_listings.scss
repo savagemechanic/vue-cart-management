@@ -5,197 +5,199 @@
     position: relative;
     font-family: $primary-font;
   
-    .btn-secondary {
-      width: 60%;
-    }
-  
-    .listings-bg {
-      margin-top: 30px;
-      width: 100%;
-      height: 100%;
-      background-color: $medium-pale-bg;
-      position: static;
-    }
-  
     .header {
       @include normal-font(normal, 1.1px); // font-weight, letter-spacing
-      height: 28.5px;  
       font-family: Phosphate-Inline;
       font-size: 10px;
       color: $black-color;
-      padding: 10px;
+
+      @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+        & {
+          background-color: transparent;
+        }
+      }
+
+      .title {
+        @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+          & {    
+            font-family: SFUIText;
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 0px;
+            color: $dark-gray;
+          }
+        }
+      }
   
-      .icon.shopping-cart {
+      .icon {
+          &.shopping-cart {
+            width: 10px;
+            height: 10px;
+            object-fit: contain;
+            background-image: url($base-url + 'img/bag.svg');
+            background-size: cover;
+
+            @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+              & {
+                width: 10.5px;
+                height: 8px;
+                background-image: url($base-url + 'img/cart.svg');
+              }
+            }
+          }
+      }
+
+      .cart-notify {
+        @include normal-font(500, normal); // font-weight, letter-spacing
         width: 10px;
         height: 10px;
-        object-fit: contain;
-        background-color: $black-bg;
-        float: right;
-        background-image: $base-url + 'img/bag.svg';
+        background-color: $warning-color;
+        border-radius: 100%;  
+        font-family: SFProDisplay;
+        font-size: $base-font-size;
+        text-align: center;
+        color: $black-color;
+        padding: 1px;
+      }
+
+      .cart-text {
+        @include normal-font(500, 0px); // font-weight, letter-spacing
+        font-family: SFUIText;
+        font-size: 8px;
+        color: $medium-dark;
+      }
+    }
+  
+    .description {
+      @include normal-font(normal, 0.6px); // font-weight, letter-spacing
+      font-size: $base-font-size;
+      display: inline-block;
+      color: $medium-dark;
+
+      @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+        & {  
+          font-family: SFUIText;
+          font-size: $medium-font-size;  
+          font-weight: 500;
+          letter-spacing: 0px;
+          text-align: left;
+          color: $medium-dark;
+        }
       }
     }
   
     .content {
+      background-color: $medium-pale-bg;
+
+      @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+        & {
+          background-color: $smoke-bg;
+        }
+      }
+
       .title {
         @include normal-font(500, 0.7px); // font-weight, letter-spacing
         font-size: $base-font-size;
         color: $black-color;
       }
   
-      .description {
-        @include normal-font(normal, 0.6px); // font-weight, letter-spacing
-        font-size: 6px;
-        display: inline-block;
-        color: $medium-dark;
-      }
-  
       .listing-container {
-        margin-bottom: 20px;
-        margin-top: -15px;
-        // margin: 10px 0;
-        padding: 20px;
-        padding-top: 0;
-        .image-container {
-          max-width: 90%;
-          align-content: center;
-          text-align: center;
-          padding: 0;
-          margin-bottom: -20px;
-  
-          .image {
-            // width: 162px;
-            // height: 162px;
-          }
-  
-          .amount {
-            top: 12%;
-            left: 45%;
-          }
-        }
-        
-        .details {
-          height: 50px;
-        }
-  
-      }
-    }
-}
-  
-.listing-modal {
-      @include flex;
-      
-      .image-container {
-        width: 100%;
-        height: 162px;
-        text-align: center;
-        padding: 1px;
-        // object-fit: contain;
         overflow: hidden;
-        margin-bottom: 5px;
-      
+        margin-top: -13px;
+
+        // .image-container {
+        //   text-align: center;
+        //   overflow: hidden;
+  
         .image {
           width: 100%;
-          height: 162px;
+          height: 100%;
         }
-      
+
+        .description {
+          z-index: 4;
+        }
+
         .amount {
           @include normal-font(500, 0.7px); // font-weight, letter-spacing
-          position: relative;
-          display: inline-block;
           width: 52.5px;
           height: 10px;
           background-color: $see-through-black;
           font-size: $base-font-size;
           color: $white-color;
-          bottom: 30px;
-          right: -135px;
-          vertical-align: middle;
+          z-index: 4;
           padding-top: 5px;
           padding-bottom: 5px;
+          text-align: center;
         }
-      }
+        // }
+
+        @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+          & {  
+            font-family: SFUIDisplay;
+            color: $white-color;
+          }
   
-      .title {
-        @include normal-font(500, 0.9px); // font-weight, letter-spacing
-        font-size: 8px;
-        color: $black-color;    
-      }
+          .overlay {
+            box-shadow: 0 1px 0.5px 0 rgba(0, 0, 0, 0.05);
+            background-color: rgba(0, 0, 0, 0.39);
+            z-index: 2;
+          }
   
-      .description {
-        @include normal-font(normal, 0.6px); // font-weight, letter-spacing
-        font-size: 6px;
-        color: $medium-dark;
-      }
+          .amount {
+            z-index: 4;
+            font-size: 12px;
+            font-weight: 500;
+            background-color: transparent;
+            letter-spacing: 0px;
+            color: $white-color;
+          }
+
+          .description {
+            z-index: 4;
+            font-size: 8px;
+            color: $white-color;
+          }
   
-      .left {
-        @include normal-font(normal, normal); // font-weight, letter-spacing
-        font-family: $secondary-font;
-        font-size: $base-font-size;
-        text-align: right;
-        float: right;
-        color: $medium-dark;
-      }
+          .btn-secondary {
+            z-index: 4;
+            font-size: 8px;
+            width: 48.5px;
+            height: 18px;
+            border-radius: 1.5px;
+            background-color: $white-bg;
+            color: #333333;
+          }
+        }
   
-      .quantity {
-        @include normal-font(normal, normal); // font-weight, letter-spacing
-        width: 100%;
-        height: 22px;
-        border: $border-thin solid #979797;
+      }
+
+      .load-more {
+        @include normal-font(500, 0px); // font-weight, letter-spacing
+        width: 79px;
+        height: 64.5px;
+        font-family: SFUIText;
+        font-size: 9px;
         color: $black-color;
-        font-family: $secondary-font;
-  
-        .left-side {  
-          font-size: 10px;
-          border-right: $border-thin solid #979797;
-          width: 7%;
-          display: inline-block;
-          padding: 4px;
-          // float: left;
-        }
-  
-        .middle {
-          font-size: $base-font-size;
-          // border: $border-thin solid #979797;
-          width: 80%;
-          display: inline-block;
-        }
-  
-        .right-side {
-          font-size: 10px;
-          border-left: $border-thin solid #979797;
-          width: 7%;
-          display: inline-block;
-          padding: 4px;
-          // float: right;
-        }
+        border: $border-thick solid $black-color;
+        text-align: center;
       }
-}
-  
-.listing-container {
-    width: 100%;
-    height: 10%;
-    z-index: 99;
+
+      .line {
+        width: 90%;
+        height: 1px;
+        border-top: 1px solid $gray-line-color;
+      }
+
+      .follow {  
+        font-family: SFUIText;
+        font-size: $medium-font-size;
+        text-align: center;
+        width: 177.5px;
+        height: 33px;
+        background-color: $black-bg;
+        color: $white-color;
+      }
+    }
 }
 
-.image-container {
-  text-align: center;
-  padding: 1px;
-  overflow: hidden;
-  margin-bottom: 5px;
-
-  .amount {
-    @include normal-font(500, 0.7px); // font-weight, letter-spacing
-    position: relative;
-    display: inline-block;
-    width: 52.5px;
-    height: 10px;
-    background-color: $see-through-black;
-    font-size: $base-font-size;
-    color: $white-color;
-    bottom: 30px;
-    right: -135px;
-    vertical-align: middle;
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-}
