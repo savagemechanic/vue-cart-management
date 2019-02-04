@@ -2,7 +2,13 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
+/// Regular font family
+/// @type List
+$text-font-stack: 'Roboto', 'SFProDisplay', 'SFUIDisplay', 'SFUIText', 'Phosphate-Inline' !default;
+
 $base-font-size: 7px !default;
+$small-font-size: $base-font-size - 1px !default;
+$font-size: $base-font-size + 1px !default;
 $medium-font-size: 12px !default;
 
 $primary-font: 'Roboto' !default;

@@ -35,7 +35,6 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: stretch;
-
         background-color: $white-bg;
         border-bottom: 1px solid $gray-hr;
         height: 42.5px;
@@ -65,7 +64,7 @@
       
           .description {
             @include normal-font(normal, 0px); // font-weight, letter-spacing
-            font-size: 6px;
+            font-size: $small-font-size;
             color: $medium-dark;
           }
       
@@ -83,13 +82,13 @@
 
           .counter {
             object-fit: contain;
-            font-family: SFProDisplay;
+            font-family: $secondary-font;
             font-size: $base-font-size;
             text-align: center;
           }
 
           .remove {
-            font-family: SFProDisplay;
+            font-family: $secondary-font;
             font-size: $base-font-size;
             color: $danger-color;
             cursor: pointer;

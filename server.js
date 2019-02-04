@@ -1,8 +1,8 @@
 
 var express = require('express');
-// var path = require('path');
 var serveStatic = require('serve-static');
-var json = require(__dirname + "/listings.json")
+
+var json = require(__dirname + "/public/listings.json")
 
 var port = process.env.PORT || 5000;
 let app = express();
@@ -14,4 +14,4 @@ app.get('/listingjson', function (req, res) {
 
 app.listen(port);
 
-console.log('Server started '+ port);
+console.log('Server Started '+ port);

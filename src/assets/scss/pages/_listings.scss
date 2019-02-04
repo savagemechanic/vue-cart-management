@@ -2,7 +2,6 @@
 
   
 .listings {
-    position: relative;
     font-family: $primary-font;
   
     .header {
@@ -11,14 +10,14 @@
       font-size: 10px;
       color: $black-color;
 
-      @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+      @include respond-to-screen('medium') {
         & {
           background-color: transparent;
         }
       }
 
       .title {
-        @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+        @include respond-to-screen('medium') {
           & {    
             font-family: SFUIText;
             font-size: 24px;
@@ -37,7 +36,7 @@
             background-image: url($base-url + 'img/bag.svg');
             background-size: cover;
 
-            @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+            @include respond-to-screen('medium') {
               & {
                 width: 10.5px;
                 height: 8px;
@@ -53,7 +52,7 @@
         height: 10px;
         background-color: $warning-color;
         border-radius: 100%;  
-        font-family: SFProDisplay;
+        font-family: $secondary-font;
         font-size: $base-font-size;
         text-align: center;
         color: $black-color;
@@ -63,7 +62,7 @@
       .cart-text {
         @include normal-font(500, 0px); // font-weight, letter-spacing
         font-family: SFUIText;
-        font-size: 8px;
+        font-size: $font-size;
         color: $medium-dark;
       }
     }
@@ -74,7 +73,7 @@
       display: inline-block;
       color: $medium-dark;
 
-      @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+      @include respond-to-screen('medium') {
         & {  
           font-family: SFUIText;
           font-size: $medium-font-size;  
@@ -85,15 +84,19 @@
         }
       }
     }
-  
-    .content {
+
+    .listings-background {
       background-color: $medium-pale-bg;
 
-      @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+      @include respond-to-screen('medium') {
         & {
           background-color: $smoke-bg;
+          height: 80%;
         }
       }
+    }
+  
+    .content {
 
       .title {
         @include normal-font(500, 0.7px); // font-weight, letter-spacing
@@ -104,14 +107,17 @@
       .listing-container {
         overflow: hidden;
         margin-top: -13px;
-
-        // .image-container {
-        //   text-align: center;
-        //   overflow: hidden;
-  
+        
         .image {
           width: 100%;
           height: 100%;
+
+          @include respond-to-screen('medium') {
+            & {
+              height: unset;
+              min-height: 100%;
+            }
+          }
         }
 
         .description {
@@ -130,9 +136,8 @@
           padding-bottom: 5px;
           text-align: center;
         }
-        // }
 
-        @media only screen and (min-width: map-get($breakpoints, 'medium')) {
+        @include respond-to-screen('medium') {
           & {  
             font-family: SFUIDisplay;
             color: $white-color;
@@ -155,18 +160,20 @@
 
           .description {
             z-index: 4;
-            font-size: 8px;
+            font-size: $font-size;
             color: $white-color;
+            margin-top: 1px;
           }
   
           .btn-secondary {
             z-index: 4;
-            font-size: 8px;
-            width: 48.5px;
+            font-size: $font-size;
+            width: fit-content;
             height: 18px;
             border-radius: 1.5px;
             background-color: $white-bg;
             color: #333333;
+            padding: 5px 2px;
           }
         }
   
@@ -181,6 +188,7 @@
         color: $black-color;
         border: $border-thick solid $black-color;
         text-align: center;
+        margin-top: -41px;
       }
 
       .line {

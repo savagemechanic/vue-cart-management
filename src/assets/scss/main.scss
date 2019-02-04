@@ -17,10 +17,13 @@
 @import
   'layout/header',
   'layout/grid';
+  
+// Pages
+@import
+  'pages/listings',
+  'pages/cart';
 
 // Components
 @import
   'components/button',
-  'components/cart',
-  'components/listings',
   'components/modal';

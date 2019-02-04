@@ -17,39 +17,39 @@
           <div class="image-meta">
             <img class="image" :src="product.imageUrl" alt="">
             
-          <div class="meta">
-            <div class="title">
-              {{ product.title }}
-            </div>
+            <div class="meta">
+              <div class="title">
+                {{ product.title }}
+              </div>
 
-            <div class="description">
-              {{ product.description }}
-            </div>
+              <div class="description">
+                {{ product.description }}
+              </div>
 
-            <div class="amount">
-              N{{ product.amount | savageprice }}
+              <div class="amount">
+                N{{ product.amount | savageprice }}
+              </div>
             </div>
-          </div>
           </div>
           
           <div class="actions">
             <div class="counter">
               <i class="icon minus" @click="decrementInCart(product.id)">-</i>
               {{ product.count }}
-              <i class="icon plus" @click="addToCart(product.id)">+</i>
+              <i class="icon plus" @click="addToCart({productId: product.id})">+</i>
             </div>
             <div class="remove" @click="removeFromCart(product.id)">Remove</div>
           </div>
-      </div>
+        </div>
 
-      <div class="total">
-        <div class="title">
-          Total
+        <div class="total">
+          <div class="title">
+            Total
+          </div>
+          <div class="amount">
+            N {{ cartTotal | savageprice }}
+          </div>
         </div>
-        <div class="amount">
-          N {{ cartTotal | savageprice }}
-        </div>
-      </div>
       </div>
 
       <div class="center-text">
@@ -74,19 +74,15 @@ import Banner from "@/components/Banner.vue";
 
 export default {
   name: 'cart',
-  data () {
-    return {
-    }
-  },
   components: {
     Banner
   },
   computed: {
     ...mapGetters([
-        'cart',
-        'cartProducts',
-        'cartTotal',
-        'checkoutMessage',
+      'cart',
+      'cartProducts',
+      'cartTotal',
+      'checkoutMessage',
     ]),
   },
   methods: {

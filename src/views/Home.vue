@@ -18,61 +18,46 @@
         Order on Whatsapp/DM 📞(+234) 805 618 2583
     </div>
       
+    <div class="listings-background">
+    </div>
 
     <div class="content">
-      <div class="listings-container">
-        <!-- <div class="start-edge"></div> -->
-
-        <loading v-if="listings.loading"/>
-        <div v-else class="listing-container cursor-pointer" :class="index"
-            v-for="(product, index) in listings.products" 
-            :key="index">
-            
-              <!-- <div class="image-container cursor-pointer" -->
-            <!-- > -->
-              <!-- <div class="image-container"> -->
-                  <div class="overlay web-only"
-                    @click="openListingModal(product)">
-                  </div>
-                  <img :src="product.imageUrl" alt="Product" class="image"
-                    @click="openListingModal(product)"/>
-                  <p class="amount">N{{ product.amount }}</p>
-              <!-- </div> -->
-
-              <!-- <div class="details"> -->
-                <!-- <el-col :span="18"> -->
-                  <div class="title">
-                  {{ product.title }}
-                  </div>
-                <div class="description">
-                  {{ product.description }}
-                </div>
-                <!-- </el-col> -->
-                <!-- <el-col :span="6" class="left"> -->
-                <button @click="handleCart(product)"
-                  class="btn btn-secondary">
-                  {{ cartButtonText(product) }}
-                </button>
-                <!-- </el-col> -->
-              <!-- </div> -->
-
-              <!-- <el-row>
-              </el-row> -->
-
-          <!-- </div> -->
+      <loading v-if="listings.loading" class="midline"/>
+      <div v-else class="listing-container cursor-pointer" :class="index"
+          v-for="(product, index) in listings.products" 
+          :key="index">
+          
+        <div class="overlay web-only"
+          @click="openListingModal(product)">
         </div>
-
-        <loading v-if="listings.moreLoading"/>
-        <div v-else @click="loadMoreProducts" class="midline load-more">See more</div>
-
-        <div class="line left web-only"></div>
-        <div class="follow midline web-only">Follow us on instagram</div>
-        <div class="line right web-only"></div>
-    
-    <listing-modal/>
+        <img :src="product.imageUrl" alt="Product" class="image"
+          @click="openListingModal(product)"/>
+        <p class="amount">N{{ product.amount|savageprice }}</p>
         
+        <div class="title">
+          {{ product.title }}
+        </div>
+        <div class="description">
+          {{ product.description }}
+        </div>
+        
+        <button @click="handleCart(product.id)"
+          class="btn btn-secondary">
+          {{  isInCart(product.id) ? 'Remove from cart' : 'Add to cart'  }}
+        </button>
+      </div>
+
+      <div @click="loadMoreProducts" class="midline load-more">
+        <loading v-if="listings.moreLoading"/>
+        <p v-else>See more</p>
+      </div>
+
+      <div class="line left web-only"></div>
+      <div class="follow midline web-only">Follow us on instagram</div>
+      <div class="line right web-only"></div>
+  
     </div>
-    </div>
+    <listing-modal/>
   </div>
 </template>
 
@@ -87,10 +72,6 @@ export default {
     ListingModal,
     Loading
   },
-  data () {
-    return {
-    }
-  },
   mounted () {
     this.fetchProducts()
   },
@@ -98,6 +79,7 @@ export default {
     ...mapGetters([
       'listings',
       'cartProducts',
+      'isInCart',
     ]),
   },
   methods: {
@@ -105,25 +87,18 @@ export default {
       'openListingModal',
       'fetchProducts',
       'loadMoreProducts',
-      'removeFromCart',
+      'decrementInCart',
       'addToCart',
     ]),
 
-    cartButtonText (product) {
-      if (product.count) {
-        return 'Remove from cart'
+    handleCart (productId) {
+      if (this.isInCart(productId)) {
+        this.decrementInCart(productId)
       } else {
-        return 'Add to cart'
+        this.addToCart({
+          productId: productId
+        })
       }
-    },
-
-    handleCart (product) {
-      if (product.count) {
-        this.removeFromCart(product.id)
-      } else {
-        this.addToCart(product.id)
-      }
-
     }
   }
 }
