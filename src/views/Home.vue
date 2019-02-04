@@ -47,7 +47,8 @@
         </button>
       </div>
 
-      <div @click="loadMoreProducts" class="midline load-more">
+      <div class="midline load-more" @click="loadMoreProducts"
+         v-if="!listings.loading">
         <loading v-if="listings.moreLoading"/>
         <p v-else>See more</p>
       </div>

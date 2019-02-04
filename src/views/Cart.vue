@@ -7,11 +7,10 @@
     </div>
 
     <div class="content">
-      <banner v-if="checkoutMessage">
-        {{ checkoutMessage }}
-      </banner>
-
       <div class="cart-top">
+        <banner v-if="checkoutMessage">
+          {{ checkoutMessage }}
+        </banner>
 
         <div class="item" v-for="(product, index) in cartProducts" :key="index">
           <div class="image-meta">

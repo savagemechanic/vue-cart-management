@@ -21,5 +21,6 @@ export default {
     box-shadow: 0 1px 3px rgba(57,66,78,0.1);
     background: transparent;
     color: #2ecc71;
+    margin-bottom: 10px;
   }
 </style>

@@ -206,7 +206,7 @@ export default new Vuex.Store({
       commit('persistCart')
     },
     checkoutCart ({ commit, state }) {
-      axios.post('http://www.mocky.io/v2/5be477442f00004900d9f521', {
+      axios.post('https://www.mocky.io/v2/5be477442f00004900d9f521', {
         products: state.cart.products
       })
       .then(function (response) {
