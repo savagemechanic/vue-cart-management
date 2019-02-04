@@ -107,6 +107,12 @@
       .listing-container {
         overflow: hidden;
         margin-top: -13px;
+
+        @include respond-to-screen('medium') {
+          & {
+            margin-top: -20px;
+          }
+        }
         
         .image {
           width: 100%;
